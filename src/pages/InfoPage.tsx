@@ -1,36 +1,7 @@
-import { useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-declare var daum: any;
-
 const InfoPage = () => {
-  useEffect(() => {
-    // 카카오 지도 초기화
-    if (typeof daum === 'undefined' || !daum.maps) return;
-    try {
-      const mapContainer = document.getElementById('map');
-      if (!mapContainer) return;
-      const mapOption = {
-        center: new daum.maps.LatLng(37.530774, 126.904339),
-        level: 4,
-      };
-      const map = new daum.maps.Map(mapContainer, mapOption);
-      const markerPosition = new daum.maps.LatLng(37.530774, 126.904339);
-      const marker = new daum.maps.Marker({ position: markerPosition });
-      marker.setMap(map);
-      const content =
-        '<div class="customoverlay">' +
-        '  <a href="http://map.daum.net/?eX=478862&eY=1119810&eName=%ED%97%A4%EC%84%B8%EB%93%9C%EC%83%81%EB%8B%B4%EC%BD%94%EC%B9%AD%EC%97%B0%EA%B5%AC%EC%86%8C" target="_blank">' +
-        '    <span class="title">헤세드상담코칭연구소</span>' +
-        '  </a>' +
-        '</div>';
-      const position = new daum.maps.LatLng(37.530774, 126.904339);
-      new daum.maps.CustomOverlay({ map, position, content, yAnchor: 1 });
-    } catch (e) {
-      console.warn('카카오 지도 초기화 실패:', e);
-    }
-  }, []);
 
   return (
     <div className="wrap sub">
@@ -260,7 +231,15 @@ const InfoPage = () => {
               <em>헤세드상담코칭연구소</em>
             </h4>
             <div className="box_map" style={{ overflow: 'hidden' }}>
-              <div className="map_area" id="map" />
+              <iframe
+                className="map_area"
+                src="https://maps.google.com/maps?q=37.530774,126.904339&z=16&output=embed"
+                style={{ border: 0, width: '100%', height: '420px' }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="헤세드상담코칭연구소 위치"
+              />
               <div className="map_pub_tran">
                 <div>
                   <strong>주변지하철</strong>
