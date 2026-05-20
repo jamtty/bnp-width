@@ -1,5 +1,8 @@
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import imgBann01 from '../assets/main/images/common/img_bann01.png';
+import imgBann02 from '../assets/main/images/common/img_bann02.png';
+import imgBann03 from '../assets/main/images/common/img_bann03.png';
 
 const InfoPage = () => {
 
@@ -48,15 +51,15 @@ const InfoPage = () => {
                 <strong>헤세드 상담코칭연구소는 다양한 영역에 상담과 코칭, 교육 프로그램을 제공합니다.</strong>
                 <div className="box_img">
                   <div>
-                    <img src="/assets/main/images/common/img_bann01.png" alt="EAP 영역" />
+                    <img src={imgBann01} alt="EAP 영역" />
                     <p>EAP 영역</p>
                   </div>
                   <div>
-                    <img src="/assets/main/images/common/img_bann02.png" alt="개인 및 가족" />
+                    <img src={imgBann02} alt="개인 및 가족" />
                     <p>개인 및 가족</p>
                   </div>
                   <div>
-                    <img src="/assets/main/images/common/img_bann03.png" alt="전문상담사 교육" />
+                    <img src={imgBann03} alt="전문상담사 교육" />
                     <p>전문상담사 교육</p>
                   </div>
                 </div>

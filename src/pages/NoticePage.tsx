@@ -1,34 +1,38 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { noticeList } from '../data/noticeData';
 
-interface NoticeItem {
-  id: number;
-  title: string;
-  date: string;
-  isNew?: boolean;
-}
+const TOTAL_PAGES = 8;
 
-const noticeList: NoticeItem[] = [
-  { id: 10, title: '2024년 하반기 집단상담 프로그램 참여자 모집', date: '2024.09.01', isNew: true },
-  { id: 9, title: 'EAP 서비스 이용 안내 및 상담 예약 방법', date: '2024.08.20', isNew: true },
-  { id: 8, title: '2024년 인턴·레지던트 과정 모집 공고', date: '2024.07.15' },
-  { id: 7, title: '상담사 보수교육 일정 안내 (2024년 3분기)', date: '2024.06.30' },
-  { id: 6, title: '헤세드 상담코칭연구소 여름 휴가 안내', date: '2024.06.20' },
-  { id: 5, title: '기독교 상담 전문가 과정 수강생 모집', date: '2024.05.10' },
-  { id: 4, title: '2024년 상반기 슈퍼비전 그룹 참여자 모집', date: '2024.04.05' },
-  { id: 3, title: '연구소 운영시간 변경 안내', date: '2024.03.15' },
-  { id: 2, title: '2024년 EAP 전문가 양성 과정 모집', date: '2024.02.20' },
-  { id: 1, title: '헤세드 상담코칭연구소 홈페이지 오픈 안내', date: '2024.01.02' },
-];
+declare function page_move(page: number): void;
 
 const NoticePage = () => {
+  const navigate = useNavigate();
+  const [keyword, setKeyword] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const filtered = keyword.trim()
+    ? noticeList.filter((item) => item.title.includes(keyword))
+    : noticeList;
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+  };
+
+  const handlePageMove = (e: React.MouseEvent, page: number) => {
+    e.preventDefault();
+    setCurrentPage(page);
+  };
+
   return (
     <div className="wrap sub">
       <Header />
 
       <div id="container">
-        {/* visual */}
-        <div id="visual" className="bg_bann_img05">
+        {/* visual start */}
+        <div id="visual">
           <div className="bg_bann_img05">
             <h3>공지사항</h3>
             <div className="location">
@@ -37,49 +41,84 @@ const NoticePage = () => {
             </div>
           </div>
         </div>
+        {/* visual end */}
 
         <div id="contents">
-          <div id="sub05_01" className="cont_area">
-            <div className="cont_w_area">
-              <h4 className="tit_01">공지사항</h4>
-              <div className="cont_txt">
-                <table className="tbl_type01">
-                  <colgroup>
-                    <col style={{ width: '80px' }} />
-                    <col />
-                    <col style={{ width: '120px' }} />
-                  </colgroup>
-                  <thead>
-                    <tr>
-                      <th scope="col">번호</th>
-                      <th scope="col">제목</th>
-                      <th scope="col">등록일</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {noticeList.map((item) => (
-                      <tr key={item.id}>
-                        <td className="tc">{item.id}</td>
-                        <td>
-                          <a href={`/notice/${item.id}`}>
-                            {item.title}
-                            {item.isNew && <span className="ico_new">N</span>}
-                          </a>
-                        </td>
-                        <td className="tc">{item.date}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+          <div className="cont_w_area">
 
-                <div className="paging">
-                  <a href="#" className="btn_prev">이전</a>
-                  <strong className="on">1</strong>
-                  <a href="#">2</a>
-                  <a href="#" className="btn_next">다음</a>
-                </div>
-              </div>
+            {/* search start */}
+            <form id="search_form" name="search_form" onSubmit={handleSearch}>
+              <fieldset className="asideSear">
+                <legend>검색</legend>
+                <label htmlFor="search_keyword">단어 입력</label>
+                <input
+                  type="text"
+                  id="search_keyword"
+                  name="search_keyword"
+                  value={keyword}
+                  onChange={(e) => setKeyword(e.target.value)}
+                />
+                <button type="submit" className="btn">검색</button>
+              </fieldset>
+            </form>
+            {/* search end */}
+
+            {/* list start */}
+            <table className="tbl_type01">
+              <caption>공지사항 리스트</caption>
+              <colgroup>
+                <col style={{ width: '18%' }} />
+                <col style={{ width: '46%' }} />
+                <col style={{ width: '18%' }} />
+                <col style={{ width: '18%' }} />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th scope="col">번호</th>
+                  <th scope="col">제목</th>
+                  <th scope="col">날짜</th>
+                  <th scope="col">조회</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filtered.length === 0 ? (
+                  <tr>
+                    <td colSpan={4} className="td_c">게시물이 없습니다.</td>
+                  </tr>
+                ) : (
+                  filtered.map((item) => (
+                    <tr key={item.detailId}>
+                      <td className="td_c">{item.no}</td>
+                      <td className="td_c">
+                        <a href="#" onClick={(e) => { e.preventDefault(); navigate(`/notice/${item.detailId}`); }}>
+                          {item.title}
+                        </a>
+                      </td>
+                      <td className="td_c">{item.date}</td>
+                      <td className="td_c">{item.views}</td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+            {/* list end */}
+
+            {/* paging start */}
+            <div className="paging">
+              <h4 className="blind">paging</h4>
+              {Array.from({ length: TOTAL_PAGES }, (_, i) => i + 1).map((page) => (
+                <a
+                  key={page}
+                  href="#"
+                  className={currentPage === page ? 'on' : undefined}
+                  onClick={(e) => handlePageMove(e, page)}
+                >
+                  {page}
+                </a>
+              ))}
             </div>
+            {/* paging end */}
+
           </div>
         </div>
       </div>

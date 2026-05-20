@@ -15,8 +15,6 @@ const ScrollToHash = () => {
         }
       }, 50);
       return () => clearTimeout(timer);
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }, [hash, pathname]);
 

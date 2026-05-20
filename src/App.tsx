@@ -1,5 +1,7 @@
-﻿import { useEffect } from 'react';
+﻿import { useEffect, useState } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
+import bannerPc from '../../upload/banner/banner_file_202308222942917.png';
+import bannerMobile from '../../upload/banner/banner_file_202308222639832.png';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToHash from './components/ScrollToHash';
@@ -8,9 +10,10 @@ import EapPage from './pages/EapPage';
 import CounselingPage from './pages/CounselingPage';
 import EducationPage from './pages/EducationPage';
 import NoticePage from './pages/NoticePage';
+import NoticeDetailPage from './pages/NoticeDetailPage';
 import DataPage from './pages/DataPage';
+import DataDetailPage from './pages/DataDetailPage';
 
-declare var daum: any;
 declare var $: any;
 
 function App() {
@@ -24,45 +27,25 @@ function App() {
       <Route path="/counseling" element={<CounselingPage />} />
       <Route path="/education" element={<EducationPage />} />
       <Route path="/notice" element={<NoticePage />} />
+      <Route path="/notice/:id" element={<NoticeDetailPage />} />
       <Route path="/data" element={<DataPage />} />
+      <Route path="/data/:id" element={<DataDetailPage />} />
       </Routes>
     </>
   );
 }
 
 function MainPage() {
+  const [bannerUrl, setBannerUrl] = useState(
+    window.innerWidth <= 768 ? bannerMobile : bannerPc
+  );
+
   useEffect(() => {
-    if (typeof daum === 'undefined' || !daum.maps) return;
-    try {
-      const mapContainer = document.getElementById('map');
-      if (!mapContainer) return;
-      const mapOption = { center: new daum.maps.LatLng(37.530774, 126.904339), level: 4 };
-      const map = new daum.maps.Map(mapContainer, mapOption);
-      const markerPosition = new daum.maps.LatLng(37.530774, 126.904339);
-      const marker = new daum.maps.Marker({ position: markerPosition });
-      marker.setMap(map);
-      const content =
-        '<div class="customoverlay">' +
-        '  <a href="http://map.daum.net/?eX=478862&eY=1119810&eName=%ED%97%A4%EC%84%B8%EB%93%9C%EC%83%81%EB%8B%B4%EC%BD%94%EC%B9%AD%EC%97%B0%EA%B5%AC%EC%86%8C" target="_blank">' +
-        '    <span class="title">헤세드상담코칭연구소</span>' +
-        '  </a>' +
-        '</div>';
-      const position = new daum.maps.LatLng(37.530774, 126.904339);
-      new daum.maps.CustomOverlay({ map, position, content, yAnchor: 1 });
-    } catch (e) {
-      console.warn('카카오 지도 초기화 실패:', e);
-    }
-    if (typeof $ === 'undefined') return;
     const handleResize = () => {
-      if ($(window).width() <= 768) {
-        $('.slider div').each(function (this: HTMLElement) { $(this).css('background-image', 'url(' + $(this).data('mobile') + ')'); });
-      } else {
-        $('.slider div').each(function (this: HTMLElement) { $(this).css('background-image', 'url(' + $(this).data('pc') + ')'); });
-      }
+      setBannerUrl(window.innerWidth <= 768 ? bannerMobile : bannerPc);
     };
-    $(window).on('resize', handleResize);
-    handleResize();
-    return () => { $(window).off('resize', handleResize); };
+    window.addEventListener('resize', handleResize);
+    return () => { window.removeEventListener('resize', handleResize); };
   }, []);
 
   return (
@@ -71,7 +54,7 @@ function MainPage() {
       <div id="container">
         <div id="visual">
           <div className="slider">
-            <div className="bann_img01" data-pc="/upload/banner/banner_file_202308222942917.png" data-mobile="/upload/banner/banner_file_202308222639832.png" />
+            <div className="bann_img01" style={{ backgroundImage: `url(${bannerUrl})` }} />
           </div>
         </div>
         <div id="contents">
@@ -101,7 +84,15 @@ function MainPage() {
             </div>
             <h4 className="tit_03">서울특별시 영등포구 당산동5가 11-47 로뎀나무내과 5층 <em>헤세드상담코칭연구소</em></h4>
             <div className="box_map" style={{ overflow: 'hidden' }}>
-              <div className="map_area" id="map" />
+              <iframe
+                className="map_area"
+                src="https://maps.google.com/maps?q=37.530774,126.904339&z=16&output=embed"
+                style={{ border: 0, width: '100%', height: '420px' }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="헤세드상담코칭연구소 위치"
+              />
             </div>
           </div>
         </div>

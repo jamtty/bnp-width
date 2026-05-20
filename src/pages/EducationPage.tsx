@@ -7,115 +7,101 @@ const EducationPage = () => {
       <Header />
 
       <div id="container">
-        {/* visual */}
-        <div id="visual" className="bg_bann_img04">
+        {/* visual start */}
+        <div id="visual">
           <div className="bg_bann_img04">
             <h3>임상 수련/교육</h3>
+            <p>
+              이 과정은 사람의 마음을 온전히 이해하고자 노력하고, 건강하게<br />
+              회복하도록 돕고자 자신의 삶을 결정한 전문상담사들의 교육 과정입니다.
+            </p>
             <div className="location">
               <span>홈</span>
               <span>임상 수련/교육</span>
             </div>
           </div>
         </div>
+        {/* visual end */}
 
         <div id="contents">
-          {/* 인턴, 레지던트 과정 */}
-          <div id="sub04_01" className="cont_area">
+
+          {/* 교육과정 start */}
+          <div className="cont_area">
             <div className="cont_w_area">
-              <h4 className="tit_01">인턴,<br />레지던트과정</h4>
-              <div className="cont_txt">
-                <strong>전문상담사로의 성장을 위한 체계적인 임상 수련 과정입니다.</strong>
-                <p>
-                  헤세드 상담코칭연구소는 전문상담사를 꿈꾸는 이들에게
-                  현장 중심의 임상 수련 기회를 제공합니다.
-                  석사 이상의 상담 관련 학위 소지자를 대상으로 하며,
-                  전문 슈퍼바이저의 지도 아래 실질적인 상담 역량을 키울 수 있습니다.
-                </p>
-                <div className="box_type02">
-                  <div>
-                    <h5 className="tit_02">인턴과정</h5>
-                    <ul>
-                      <li>대상: 상담 관련 전공 석사과정 재학생 또는 졸업생</li>
-                      <li>기간: 1년 과정 (주 2~3일 출근)</li>
-                      <li>내용: 개인상담 실습, 사례 개념화, 그룹 슈퍼비전</li>
-                      <li>자격: 한국상담학회 2급 자격 취득 연계</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <h5 className="tit_02">레지던트과정</h5>
-                    <ul>
-                      <li>대상: 인턴 수료 후 또는 상담 경력 2년 이상</li>
-                      <li>기간: 1~2년 과정</li>
-                      <li>내용: 개인·집단상담 운영, 심층 슈퍼비전, 연구 활동</li>
-                      <li>자격: 한국상담학회 1급 자격 취득 연계</li>
-                    </ul>
-                  </div>
+              <h4 className="tit_01">교육과정</h4>
+              <div className="cont_txt pt20 pb0">
+
+                {/* 인턴 과정 start */}
+                <h5 className="tit_05" id="sub04_01">인턴 과정</h5>
+                <div className="obj_txt">
+                  <span className="block_txt">1년 과정으로 학사 3학년 이상부터 가능합니다.</span>
+                  <span className="block_txt">상담사례 개념화에 근거한 집단슈퍼비전 교육과 상담 사례 경험, 면접 상담 경험으로 이루어집니다.</span>
                 </div>
-              </div>
-            </div>
-          </div>
+                {/* 인턴 과정 end */}
 
-          {/* 교육분석, 슈퍼비전 */}
-          <div id="sub04_02" className="cont_area">
-            <div className="cont_w_area">
-              <h4 className="tit_01">교육분석,<br />슈퍼비전</h4>
-              <div className="cont_txt">
-                <strong>전문상담사로서의 자기 성장과 상담 역량 향상을 위한 과정입니다.</strong>
-                <ul className="list_type01">
-                  <li>
-                    <strong>개인 교육분석</strong>
-                    <p>
-                      상담사 자신의 내면을 탐색하고 개인적 문제를 해결함으로써
-                      보다 효과적인 상담을 수행할 수 있도록 돕는 개인 분석 과정입니다.
-                    </p>
-                  </li>
-                  <li>
-                    <strong>개인 슈퍼비전</strong>
-                    <p>
-                      1:1 슈퍼비전을 통해 상담사례를 심층적으로 검토하고
-                      전문적 역량을 강화합니다. 숙련된 슈퍼바이저와 함께
-                      개별적인 피드백을 받을 수 있습니다.
-                    </p>
-                  </li>
-                  <li>
-                    <strong>그룹 슈퍼비전</strong>
-                    <p>
-                      소그룹 형태로 진행되는 집단 슈퍼비전으로, 다양한 사례를
-                      공유하고 동료들과 함께 성장하는 과정입니다.
-                    </p>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+                {/* 레지던트 과정 start */}
+                <h5 className="tit_05">레지던트 과정</h5>
+                <div className="obj_txt">
+                  <span className="block_txt">2년 과정으로 인터 과정 수료자에 한하여 교육 신청 가능합니다. </span>
+                  <span className="block_txt">상담사례 개념화에 근거한 집단슈퍼비전과 상담 사례 경험과 면접 상담 경험, 심리검사 진행 경험으로 이루어집니다.</span>
+                </div>
+                {/* 레지던트 과정 end */}
 
-          {/* 상담교육 프로그램 */}
-          <div id="sub04_03" className="cont_area">
-            <div className="cont_w_area">
-              <h4 className="tit_01">상담교육<br />프로그램</h4>
-              <div className="cont_txt">
-                <strong>다양한 계층을 위한 상담 교육 프로그램을 운영합니다.</strong>
-                <ul className="list_type01">
-                  <li>
-                    <strong>상담이론 및 기법 교육</strong>
-                    <p>인지행동치료, 게슈탈트 치료, 정신역동 등 다양한 상담이론과 실제 적용 기법을 배웁니다.</p>
-                  </li>
-                  <li>
-                    <strong>집단상담 지도자 양성 과정</strong>
-                    <p>집단 역동의 이해와 집단상담 운영 능력을 개발하는 실습 중심 교육 과정입니다.</p>
-                  </li>
-                  <li>
-                    <strong>기독교 상담 전문가 과정</strong>
-                    <p>기독교적 세계관을 바탕으로 한 상담 접근법과 목회 상담의 이론 및 실제를 다룹니다.</p>
-                  </li>
-                  <li>
-                    <strong>EAP 전문가 양성 과정</strong>
-                    <p>기업 현장에서 EAP를 효과적으로 운영할 수 있는 전문 인력을 양성하는 교육 과정입니다.</p>
-                  </li>
-                </ul>
+                {/* 교육분석 start */}
+                <h5 className="tit_05" id="sub04_02">교육분석</h5>
+                <div className="obj_txt">
+                  <span className="block_txt">교육분석은 정신분석이론에 근거한 정신치료 교육분석을 진행합니다. 상담자로서 필수적 능력은 자기 통찰의 능력입니다.</span>
+                  <span className="block_txt">이를 위해 상담자에게 꼭 필요한 정신분석 기반 교육분석을 진행합니다.</span>
+                  <span className="block_txt">회기 별 시간은 50분이나 100분 선택 가능합니다.</span>
+                </div>
+                {/* 교육분석 end */}
+
+                {/* 개인 슈퍼비전 start */}
+                <h5 className="tit_05">개인 슈퍼비전</h5>
+                <div className="obj_txt">1:1슈퍼비전과 1:3 슈퍼비전을 진행합니다. </div>
+                {/* 개인 슈퍼비전 end */}
+
+                {/* 상담교육 프로그램 start */}
+                <h5 className="tit_05" id="sub04_03">상담교육 프로그램</h5>
+                <div className="obj_txt pb0">
+                  <ul className="list_type">
+                    <li>
+                      <strong>상담 사례 개념화 교육</strong>
+                      <p>
+                        <span className="block_txt">상담이론 사례 개념화, 정신역동 사례 개념화, 부부치료 사례 개념화, 상담 관련 다양한 교육 등을 교육합니다.</span>
+                        <span className="block_txt">이 과정은 전문상담사로서 훈련하는 기초이며 필수과정입니다.</span>
+                      </p>
+                    </li>
+                    <li>
+                      <strong>상담 기술 교육</strong>
+                      <p>
+                        <span className="block_txt">전문 상담자로서 준비하기 위한 상담의 기본 기술 교육을 진행합니다.</span>
+                        <span className="block_txt">상담자의 공감훈련, 상담의 구조화 훈련, 상담 기본 기술 훈련을 교육합니다.</span>
+                      </p>
+                    </li>
+                    <li>
+                      <strong>집단 상담 교육</strong>
+                      <p>
+                        <span className="block_txt">집단상담의 경험은 상담자로서 다양한 사람들의 내면과 역동을 경험하게 합니다.</span>
+                        <span className="block_txt">이에 대상관계 집단상담 및 공감 훈련 집단 상담 등 다양한 이론에 근거한 집단상담이 진행됩니다.</span>
+                      </p>
+                    </li>
+                    <li>
+                      <strong>심리검사 교육</strong>
+                      <p>
+                        <span className="block_txt">심리 검사교육은 전문 임상심리사로서부터 상담자로서 필요한 심리검사 실시 및 해석 능력을 향상하는 교육입니다.</span>
+                        <span className="block_txt">종합심리 검사 훈련과 다양한 심리검사에 관한 훈련을 하게 됩니다.</span>
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+                {/* 상담교육 프로그램 end */}
+
               </div>
             </div>
           </div>
+          {/* 교육과정 end */}
+
         </div>
       </div>
 

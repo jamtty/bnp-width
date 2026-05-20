@@ -20,7 +20,7 @@ const Footer = () => {
         <div>
           <h2><Link to="/eap">EAP</Link></h2>
           <ul>
-            <li><h3><Link to="/eap#sub02_02">상담 및 코칭 심리진단</Link></h3></li>
+            <li><h3><Link to="/eap#sub02_01">상담 및 코칭 심리진단</Link></h3></li>
             <li><h3><Link to="/eap#sub02_03">조직지원 프로그램</Link></h3></li>
           </ul>
 
