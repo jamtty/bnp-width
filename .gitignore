@@ -12,6 +12,12 @@ dist/
 dist-ssr/
 *.local
 
+# phpMyAdmin
+phpMyAdmin/
+
+# uploads
+uploads/
+
 # Environment variables (contains credentials)
 .env
 .env.*
@@ -27,6 +33,3 @@ dist-ssr/
 *.njsproj
 *.sln
 *.sw?
-
-# phpMyAdmin
-phpMyAdmin/
