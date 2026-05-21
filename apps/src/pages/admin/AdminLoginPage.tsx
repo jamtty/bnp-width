@@ -22,7 +22,7 @@ export default function AdminLoginPage() {
   }, [])
 
   if (isAuthenticated && !isTokenExpired(accessToken)) {
-    return <Navigate to="/admin" replace />
+    return <Navigate to="/admin/banner" replace />
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -41,7 +41,7 @@ export default function AdminLoginPage() {
         },
         result.token,
       )
-      navigate('/admin', { replace: true })
+      navigate('/admin/banner', { replace: true })
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : '로그인에 실패했습니다.'
       alert(msg)
