@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "target": "es2023",
+    "lib": ["ES2023", "DOM"],
+    "module": "esnext",
+    "types": ["vite/client"],
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* Path alias */
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": [
+    "src/components/admin/RichEditor.tsx",
+    "src/components/admin/DatePicker.tsx",
+    "src/pages/admin/AdminConsultationDetailPage.tsx",
+    "src/pages/admin/AdminConsultationPage.tsx",
+    "src/pages/admin/AdminMediTvFormPage.tsx",
+    "src/pages/admin/AdminNoticeFormPage.tsx",
+    "src/pages/admin/AdminVoiceDetailPage.tsx"
+  ]
+}
