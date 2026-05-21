@@ -92,9 +92,7 @@ export const createNotice = async (
   form.append('title', title)
   form.append('content', content)
   files?.forEach((f) => form.append('files[]', f))
-  const { data } = await apiClient.post('/api/notice', form, {
-    headers: { 'Content-Type': undefined },
-  })
+  const { data } = await apiClient.post('/api/notice', form)
   if (!data.success) throw new Error(data.message || '저장에 실패했습니다.')
   return data.data
 }
@@ -112,9 +110,7 @@ export const updateNotice = async (
   form.append('title', title)
   form.append('content', content)
   files?.forEach((f) => form.append('files[]', f))
-  const { data } = await apiClient.post(`/api/notice/${id}`, form, {
-    headers: { 'Content-Type': undefined },
-  })
+  const { data } = await apiClient.post(`/api/notice/${id}`, form)
   if (!data.success) throw new Error(data.message || '수정에 실패했습니다.')
 }
 

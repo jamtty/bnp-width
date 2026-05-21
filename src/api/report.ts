@@ -92,9 +92,7 @@ export const createReport = async (
   form.append('title', title)
   form.append('content', content)
   files?.forEach((f) => form.append('files[]', f))
-  const { data } = await apiClient.post('/api/report', form, {
-    headers: { 'Content-Type': undefined },
-  })
+  const { data } = await apiClient.post('/api/report', form)
   if (!data.success) throw new Error(data.message || '저장에 실패했습니다.')
   return data.data
 }
@@ -112,9 +110,7 @@ export const updateReport = async (
   form.append('title', title)
   form.append('content', content)
   files?.forEach((f) => form.append('files[]', f))
-  const { data } = await apiClient.post(`/api/report/${id}`, form, {
-    headers: { 'Content-Type': undefined },
-  })
+  const { data } = await apiClient.post(`/api/report/${id}`, form)
   if (!data.success) throw new Error(data.message || '수정에 실패했습니다.')
 }
 

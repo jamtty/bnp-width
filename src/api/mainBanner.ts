@@ -67,17 +67,13 @@ export const fetchMainBannerDetail = async (id: number): Promise<MainBannerItem>
 }
 
 export const createMainBanner = async (formData: FormData): Promise<{ id: number }> => {
-  const { data } = await apiClient.post('/api/main-banner', formData, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  })
+  const { data } = await apiClient.post('/api/main-banner', formData)
   if (!data.success) throw new Error(data.message || '등록에 실패했습니다.')
   return data.data
 }
 
 export const updateMainBanner = async (id: number, formData: FormData): Promise<void> => {
-  const { data } = await apiClient.post(`/api/main-banner/${id}`, formData, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  })
+  const { data } = await apiClient.post(`/api/main-banner/${id}`, formData)
   if (!data.success) throw new Error(data.message || '수정에 실패했습니다.')
 }
 

@@ -1,5 +1,5 @@
 ﻿import { useState, useEffect } from 'react'
-import { useNavigate, Navigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, Navigate } from 'react-router-dom'
 import { useAuthStore, isTokenExpired } from '@/store/useAuthStore'
 import { loginAdmin } from '@/api/auth'
 import adminCssUrl from '@/assets/css/admin.css?url'
@@ -7,8 +7,6 @@ import adminCssUrl from '@/assets/css/admin.css?url'
 export default function AdminLoginPage() {
   const navigate = useNavigate()
   const { isAuthenticated, accessToken, setAuth } = useAuthStore()
-  const [searchParams] = useSearchParams()
-  const isExpired = searchParams.get('expired') === '1'
 
   const [id, setId] = useState('')
   const [pw, setPw] = useState('')
@@ -56,12 +54,6 @@ export default function AdminLoginPage() {
     <div className="admin_login_wrap">
       <div className="admin_login_box">
         <h1 className="admin_login_title">로그인</h1>
-
-        {isExpired && (
-          <p className="admin_session_expired_msg">
-            관리자 세션이 만료된 후에는 관리자 페이지에서 모든 링크나 새로고침 시 관리자 로그인이 필요합니다.
-          </p>
-        )}
 
         <form onSubmit={handleSubmit}>
           <div className="admin_login_field">

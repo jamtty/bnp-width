@@ -48,14 +48,14 @@ function PrivateRoute({ children }: { children: React.ReactNode }) {
     const interval = setInterval(() => {
       if (isTokenExpired(accessToken)) {
         clearAuth();
-        navigate('/admin/login?expired=1', { replace: true });
+        navigate('/admin/login', { replace: true });
       }
     }, 60_000);
     return () => clearInterval(interval);
   }, [accessToken, clearAuth, navigate]);
 
   if (isExpired) {
-    return <Navigate to="/admin/login?expired=1" replace />;
+    return <Navigate to="/admin/login" replace />;
   }
   return <>{children}</>;
 }

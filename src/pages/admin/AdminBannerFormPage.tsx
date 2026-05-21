@@ -79,8 +79,8 @@ export default function AdminBannerFormPage() {
     fd.append('title', title.trim())
     fd.append('display_yn', displayYn)
     fd.append('sort_order', sortOrder)
-    if (webFile) fd.append('image_web', webFile)
-    if (mobileFile) fd.append('image_mobile', mobileFile)
+    if (webFile) fd.append('img_web', webFile)
+    if (mobileFile) fd.append('img_mobile', mobileFile)
 
     setLoading(true)
     try {
