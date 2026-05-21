@@ -1,5 +1,9 @@
-﻿import { useEffect, useState, useRef, useCallback } from 'react';
-import { Routes, Route, Link, Navigate } from 'react-router-dom';
+﻿import { useEffect, useState } from 'react';
+import { Routes, Route, Link, Navigate, useNavigate } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToHash from './components/ScrollToHash';
@@ -26,9 +30,32 @@ import { fetchActiveBanners, type MainBannerItem } from './api/mainBanner';
 declare var $: any;
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated, accessToken } = useAuthStore();
-  if (!isAuthenticated || isTokenExpired(accessToken)) {
-    return <Navigate to="/admin/login" replace />;
+  const { isAuthenticated, accessToken, clearAuth } = useAuthStore();
+  const navigate = useNavigate();
+
+  const isExpired = !isAuthenticated || isTokenExpired(accessToken);
+
+  // 만료 감지 시 스토어 정리
+  useEffect(() => {
+    if (isExpired) {
+      clearAuth();
+    }
+  }, [isExpired, clearAuth]);
+
+  // 1분마다 토큰 만료 여부 체크 → 만료 시 자동 로그아웃
+  useEffect(() => {
+    if (!accessToken) return;
+    const interval = setInterval(() => {
+      if (isTokenExpired(accessToken)) {
+        clearAuth();
+        navigate('/admin/login?expired=1', { replace: true });
+      }
+    }, 60_000);
+    return () => clearInterval(interval);
+  }, [accessToken, clearAuth, navigate]);
+
+  if (isExpired) {
+    return <Navigate to="/admin/login?expired=1" replace />;
   }
   return <>{children}</>;
 }
@@ -75,9 +102,7 @@ function App() {
 
 function MainPage() {
   const [banners, setBanners] = useState<MainBannerItem[]>([])
-  const [current, setCurrent] = useState(0)
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   useEffect(() => {
     fetchActiveBanners().then(setBanners).catch(() => {})
@@ -89,65 +114,31 @@ function MainPage() {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  // 자동 슬라이드
-  const startTimer = useCallback(() => {
-    if (timerRef.current) clearInterval(timerRef.current)
-    timerRef.current = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % Math.max(banners.length, 1))
-    }, 4000)
-  }, [banners.length])
-
-  useEffect(() => {
-    if (banners.length > 1) startTimer()
-    return () => { if (timerRef.current) clearInterval(timerRef.current) }
-  }, [banners.length, startTimer])
-
-  // 터치 스와이프
-  const touchStartX = useRef(0)
-  const handleTouchStart = (e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX }
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    const diff = touchStartX.current - e.changedTouches[0].clientX
-    if (Math.abs(diff) < 40) return
-    setCurrent((prev) => {
-      if (diff > 0) return (prev + 1) % banners.length
-      return (prev - 1 + banners.length) % banners.length
-    })
-    startTimer()
-  }
-
-  const goTo = (idx: number) => { setCurrent(idx); startTimer() }
-
-  const bannerUrl = banners.length > 0
-    ? (isMobile ? (banners[current].img_url_mobile || banners[current].img_url_web) : banners[current].img_url_web)
-    : ''
-
   return (
     <div className="wrap main">
       <Header />
       <div id="container">
         <div id="visual">
-          <div
-            className="slider"
-            onTouchStart={handleTouchStart}
-            onTouchEnd={handleTouchEnd}
+          <Swiper
+            modules={[Autoplay, Pagination]}
+            autoplay={banners.length > 1 ? { delay: 4000, disableOnInteraction: false } : false}
+            pagination={banners.length > 1 ? { clickable: true } : false}
+            loop={banners.length > 1}
+            className="main-banner-swiper"
           >
-            <div
-              className="bann_img01"
-              style={{ backgroundImage: bannerUrl ? `url(${bannerUrl})` : undefined }}
-            />
-            {banners.length > 1 && (
-              <div className="slider_dots">
-                {banners.map((_, i) => (
-                  <button
-                    key={i}
-                    className={`slider_dot${i === current ? ' active' : ''}`}
-                    onClick={() => goTo(i)}
-                    aria-label={`배너 ${i + 1}`}
-                  />
-                ))}
-              </div>
+            {banners.length > 0 ? banners.map((b) => (
+              <SwiperSlide key={b.id}>
+                <div
+                  className="bann_img01"
+                  style={{ backgroundImage: `url(${isMobile ? (b.img_url_mobile || b.img_url_web) : b.img_url_web})` }}
+                />
+              </SwiperSlide>
+            )) : (
+              <SwiperSlide>
+                <div className="bann_img01" />
+              </SwiperSlide>
             )}
-          </div>
+          </Swiper>
         </div>
         <div id="contents">
           <div className="cont_w_area">

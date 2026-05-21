@@ -116,149 +116,125 @@ export default function AdminBannerFormPage() {
         <AdminHeader pageTitle={isEdit ? '배너 수정' : '배너 등록'} />
         <main className="adm_main">
           <section className="adm_section">
-            <form onSubmit={handleSubmit}>
-              <table className="adm_form_table">
-                <tbody>
-                  {/* 배너명 */}
-                  <tr>
-                    <th><label htmlFor="banner_title">배너명 <span className="adm_required">*</span></label></th>
-                    <td>
+            <form className="adm_form" onSubmit={handleSubmit}>
+              {/* 배너명 */}
+              <div className="adm_form_row">
+                <label className="adm_form_label" htmlFor="banner_title">
+                  배너명 <span className="required">*</span>
+                </label>
+                <input
+                  id="banner_title"
+                  type="text"
+                  className="adm_form_input"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder="배너명을 입력해주세요."
+                />
+              </div>
+
+              {/* 이미지(web) */}
+              <div className="adm_form_row">
+                <span className="adm_form_label">
+                  이미지(web){!isEdit && <> <span className="required">*</span></>}
+                </span>
+                <div style={{ flex: 1 }}>
+                  <div className="adm_file_row">
+                    <label className="adm_file_label" htmlFor="webFileInput">
+                      파일 선택
                       <input
-                        id="banner_title"
-                        type="text"
-                        className="adm_input"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        placeholder="배너명을 입력해주세요."
+                        id="webFileInput"
+                        type="file"
+                        accept="image/*"
+                        style={{ display: 'none' }}
+                        onChange={handleWebChange}
                       />
-                    </td>
-                  </tr>
+                    </label>
+                    <span className="adm_file_name">
+                      {webFile ? webFile.name : (webCurrentName || '선택된 파일 없음')}
+                    </span>
+                  </div>
+                  {(webPreview || webCurrentUrl) && (
+                    <img
+                      src={webPreview || webCurrentUrl}
+                      alt="web 미리보기"
+                      style={{ marginTop: 8, maxHeight: 100, objectFit: 'contain', border: '1px solid #ddd', display: 'block' }}
+                    />
+                  )}
+                </div>
+              </div>
 
-                  {/* 이미지(web) */}
-                  <tr>
-                    <th>이미지(web) {!isEdit && <span className="adm_required">*</span>}</th>
-                    <td>
-                      <div className="adm_file_row">
-                        <label className="adm_file_label">
-                          파일선택
-                          <input
-                            type="file"
-                            accept="image/*"
-                            style={{ display: 'none' }}
-                            onChange={handleWebChange}
-                          />
-                        </label>
-                        <span className="adm_file_name">
-                          {webFile ? webFile.name : (webCurrentName || '선택된 파일 없음')}
-                        </span>
-                        <button
-                          type="button"
-                          className="adm_btn_upload"
-                          onClick={() => document.getElementById('web_trigger')?.click()}
-                        >업로드</button>
-                        <input
-                          id="web_trigger"
-                          type="file"
-                          accept="image/*"
-                          style={{ display: 'none' }}
-                          onChange={handleWebChange}
-                        />
-                      </div>
-                      {(webPreview || webCurrentUrl) && (
-                        <img
-                          src={webPreview || webCurrentUrl}
-                          alt="web 미리보기"
-                          style={{ marginTop: 8, maxHeight: 100, objectFit: 'contain', border: '1px solid #ddd' }}
-                        />
-                      )}
-                    </td>
-                  </tr>
+              {/* 이미지(mobile) */}
+              <div className="adm_form_row">
+                <span className="adm_form_label">이미지(mobile)</span>
+                <div style={{ flex: 1 }}>
+                  <div className="adm_file_row">
+                    <label className="adm_file_label" htmlFor="mobileFileInput">
+                      파일 선택
+                      <input
+                        id="mobileFileInput"
+                        type="file"
+                        accept="image/*"
+                        style={{ display: 'none' }}
+                        onChange={handleMobileChange}
+                      />
+                    </label>
+                    <span className="adm_file_name">
+                      {mobileFile ? mobileFile.name : (mobileCurrentName || '선택된 파일 없음')}
+                    </span>
+                  </div>
+                  {(mobilePreview || mobileCurrentUrl) && (
+                    <img
+                      src={mobilePreview || mobileCurrentUrl}
+                      alt="mobile 미리보기"
+                      style={{ marginTop: 8, maxHeight: 100, objectFit: 'contain', border: '1px solid #ddd', display: 'block' }}
+                    />
+                  )}
+                  <p className="adm_input_hint">미등록 시 PC 이미지로 대체됩니다.</p>
+                </div>
+              </div>
 
-                  {/* 이미지(mobile) */}
-                  <tr>
-                    <th>이미지(mobile)</th>
-                    <td>
-                      <div className="adm_file_row">
-                        <label className="adm_file_label">
-                          파일선택
-                          <input
-                            type="file"
-                            accept="image/*"
-                            style={{ display: 'none' }}
-                            onChange={handleMobileChange}
-                          />
-                        </label>
-                        <span className="adm_file_name">
-                          {mobileFile ? mobileFile.name : (mobileCurrentName || '선택된 파일 없음')}
-                        </span>
-                        <button
-                          type="button"
-                          className="adm_btn_upload"
-                          onClick={() => document.getElementById('mobile_trigger')?.click()}
-                        >업로드</button>
-                        <input
-                          id="mobile_trigger"
-                          type="file"
-                          accept="image/*"
-                          style={{ display: 'none' }}
-                          onChange={handleMobileChange}
-                        />
-                      </div>
-                      {(mobilePreview || mobileCurrentUrl) && (
-                        <img
-                          src={mobilePreview || mobileCurrentUrl}
-                          alt="mobile 미리보기"
-                          style={{ marginTop: 8, maxHeight: 100, objectFit: 'contain', border: '1px solid #ddd' }}
-                        />
-                      )}
-                      <p className="adm_input_hint">미등록 시 PC 이미지로 대체됩니다.</p>
-                    </td>
-                  </tr>
+              {/* 노출여부 */}
+              <div className="adm_form_row">
+                <span className="adm_form_label">노출여부 <span className="required">*</span></span>
+                <div className="adm_radio_group">
+                  <label className="adm_radio">
+                    <input
+                      type="radio"
+                      name="display_yn"
+                      value="Y"
+                      checked={displayYn === 'Y'}
+                      onChange={() => setDisplayYn('Y')}
+                    />
+                    노출
+                  </label>
+                  <label className="adm_radio">
+                    <input
+                      type="radio"
+                      name="display_yn"
+                      value="N"
+                      checked={displayYn === 'N'}
+                      onChange={() => setDisplayYn('N')}
+                    />
+                    비노출
+                  </label>
+                </div>
+              </div>
 
-                  {/* 노출여부 */}
-                  <tr>
-                    <th>노출여부 <span className="adm_required">*</span></th>
-                    <td>
-                      <label className="adm_radio">
-                        <input
-                          type="radio"
-                          name="display_yn"
-                          value="Y"
-                          checked={displayYn === 'Y'}
-                          onChange={() => setDisplayYn('Y')}
-                        /> 노출
-                      </label>
-                      <label className="adm_radio" style={{ marginLeft: 16 }}>
-                        <input
-                          type="radio"
-                          name="display_yn"
-                          value="N"
-                          checked={displayYn === 'N'}
-                          onChange={() => setDisplayYn('N')}
-                        /> 비노출
-                      </label>
-                    </td>
-                  </tr>
-
-                  {/* 노출순위 */}
-                  <tr>
-                    <th><label htmlFor="sort_order">노출순위 <span className="adm_required">*</span></label></th>
-                    <td>
-                      <select
-                        id="sort_order"
-                        className="adm_search_select"
-                        value={sortOrder}
-                        onChange={(e) => setSortOrder(e.target.value)}
-                      >
-                        <option value="">선택</option>
-                        {SORT_OPTIONS.map((n) => (
-                          <option key={n} value={n}>{n}</option>
-                        ))}
-                      </select>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              {/* 노출순위 */}
+              <div className="adm_form_row">
+                <label className="adm_form_label" htmlFor="sort_order">노출순위</label>
+                <select
+                  id="sort_order"
+                  className="adm_search_select"
+                  value={sortOrder}
+                  onChange={(e) => setSortOrder(e.target.value)}
+                >
+                  <option value="">선택</option>
+                  {SORT_OPTIONS.map((n) => (
+                    <option key={n} value={n}>{n}</option>
+                  ))}
+                </select>
+              </div>
 
               <div className="adm_form_btns">
                 <button type="submit" className="adm_btn_primary" disabled={loading}>

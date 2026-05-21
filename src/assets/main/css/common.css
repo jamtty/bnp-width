@@ -44,6 +44,7 @@ input[type='password']{width:100%;height:35px;color:#666;padding:5px 9px;border:
 /* visual */
 .main #visual {position:relative;overflow:hidden;}
 .main #visual > div.slider {position:relative;}
+.main #visual .main-banner-swiper {height:clamp(220px, 70vw, 530px);} /* 기본 높이 폴백 */
 .main #visual > div.slider div {width:100%;text-align:center;background-size:300% auto;background-repeat: no-repeat;background-position: center center;}
 .main #visual > div.slider div span {overflow:hidden;text-indent:-999999em;display:inline-block;background-size:100% auto;background-position:center top;background-repeat:no-repeat;margin:333px auto 0;}
 .main #visual > div.slider div.bann_img01 {}
@@ -52,6 +53,12 @@ input[type='password']{width:100%;height:35px;color:#666;padding:5px 9px;border:
 .slider_dots {position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10;}
 .slider_dot {width:10px;height:10px;border-radius:50%;border:none;background:rgba(255,255,255,0.6);cursor:pointer;padding:0;transition:background .2s;}
 .slider_dot.active {background:#fff;}
+/* Swiper 메인 배너 */
+.main-banner-swiper {width:100%;height:100%;}
+.main-banner-swiper .swiper-slide {width:100%;height:100%;}
+.main-banner-swiper .swiper-slide .bann_img01 {width:100%;height:100%;background-size:300% auto;background-repeat:no-repeat;background-position:center center;}
+.main-banner-swiper .swiper-pagination-bullet {width:10px;height:10px;background:rgba(255,255,255,0.6);opacity:1;}
+.main-banner-swiper .swiper-pagination-bullet-active {background:#fff;}
 
 .sub #visual {background-color:#f2f1ef;}
 .sub #visual > div {height:260px;padding-top:35px;background-size:180% auto;background-repeat:no-repeat;background-position:center 54.5%;box-sizing:border-box;}
@@ -203,7 +210,7 @@ input[type='password']{width:100%;height:35px;color:#666;padding:5px 9px;border:
 
 .toolTip {display:none;position:absolute;top:150px;left:0;z-index:3;width:calc(100% - 3px);padding:19px 20px;text-align:left;border:1px solid #ccc;background:#fff;box-shadow:2px 3px 2px #d9d9d9;box-sizing:border-box;}
 .toolTip .tit_04 {position:relative;}
-.toolTip .tit_04 .btn_close {position:absolute;top:-19px;right:-20px;overflow:hidden;text-indent:-999999em;width:29px;height:29px;background:url('../images/common/btn_close.png') center center no-repeat;}
+.toolTip .tit_04 .btn_close {position:absolute;top:-19px;right:-20px;overflow:hidden;text-indent:-999999em;width:29px;height:29px;background:url('../images/common/btn_close.png') center center no-repeat;border:none;padding:0;cursor:pointer;}
 .toolTip ul {line-height:26px;}
 .toolTip ul > li {text-indent:-9px;margin-left:9px;}
 .toolTip ul > li:before {content:'';display:inline-block;margin-right:6px;vertical-align:middle;width:3px;height:3px;background:url('../images/common/ico_dot.png') no-repeat;}
@@ -284,7 +291,9 @@ input[type='password']{width:100%;height:35px;color:#666;padding:5px 9px;border:
 
 
 	/* visual */
-	.main #visual > div.slider div {height:530px; background-size: 100%;}
+	.main #visual > div.slider div {height:clamp(220px, 70vw, 530px); background-size: 100%;}
+	.main #visual .main-banner-swiper {height:clamp(220px, 70vw, 530px);}
+	.main #visual .main-banner-swiper .swiper-slide .bann_img01 {background-size:100% auto;}
 	/* .main #visual > div.slider div span {margin-top:77px;width:340px;height:241px;background-image:url('../images/mobile/txt_visual.png');} */
 	.main #visual .slick-dots li {width:10px;}
 	.sub #visual > div .location {display:none;}
@@ -349,6 +358,8 @@ input[type='password']{width:100%;height:35px;color:#666;padding:5px 9px;border:
 	/* visual */
 	.main #visual {min-width:1080px;}
 	.main #visual > div.slider div {height:810px;background-size:125% auto;}
+	.main #visual .main-banner-swiper {height:clamp(530px, 75vw, 810px);}
+	.main #visual .main-banner-swiper .swiper-slide .bann_img01 {background-size:125% auto;}
 	/* .main #visual > div.slider div span {margin-top:333px;width:90%;max-width:888px;height:232px;background-image:url('../images/pc/txt_visual.png');} */
 	.main #visual > div.slider div.bann_img02 {background-position: center center;}
 

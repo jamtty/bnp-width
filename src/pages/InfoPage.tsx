@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import imgBann01 from '../assets/main/images/common/img_bann01.png';
@@ -5,6 +6,9 @@ import imgBann02 from '../assets/main/images/common/img_bann02.png';
 import imgBann03 from '../assets/main/images/common/img_bann03.png';
 
 const InfoPage = () => {
+  const [openTooltip, setOpenTooltip] = useState<string | null>(null);
+  const showTooltip = (key: string) => setOpenTooltip(key);
+  const closeTooltip = () => setOpenTooltip(null);
 
   return (
     <div className="wrap sub">
@@ -74,11 +78,11 @@ const InfoPage = () => {
               <div className="cont_txt">
                 <ul className="cont_group">
                   <li>
-                    <span>대표</span>
-                    <div className="toolTip">
+                    <span onClick={() => showTooltip('ceo')} style={{ cursor: 'pointer' }}>대표</span>
+                    <div className="toolTip" style={{ display: openTooltip === 'ceo' ? 'block' : undefined }}>
                       <h5 className="tit_04">
                         <span>임국진</span>
-                        <a href="javascript:void(0)" className="btn_close">Close</a>
+                        <button type="button" className="btn_close" onClick={closeTooltip}>Close</button>
                       </h5>
                       <ul>
                         <li>현 진인글로벌 대표</li>
@@ -86,11 +90,11 @@ const InfoPage = () => {
                     </div>
                   </li>
                   <li>
-                    <span>소장</span>
-                    <div className="toolTip">
+                    <span onClick={() => showTooltip('director')} style={{ cursor: 'pointer' }}>소장</span>
+                    <div className="toolTip" style={{ display: openTooltip === 'director' ? 'block' : undefined }}>
                       <h5 className="tit_04">
                         <span>윤인 교수</span>
-                        <a href="javascript:void(0)" className="btn_close">Close</a>
+                        <button type="button" className="btn_close" onClick={closeTooltip}>Close</button>
                       </h5>
                       <ul>
                         <li>University of Missouri Columbia 상담심리학 박사</li>
@@ -103,8 +107,8 @@ const InfoPage = () => {
                       </ul>
                     </div>
 
-                    <span className="etc">자문위원</span>
-                    <div className="toolTip w645">
+                    <span className="etc" onClick={() => showTooltip('advisor')} style={{ cursor: 'pointer' }}>자문위원</span>
+                    <div className="toolTip w645" style={{ display: openTooltip === 'advisor' ? 'block' : undefined }}>
                       <div>
                         <h5 className="tit_04"><span>이유경 교수</span></h5>
                         <ul>
@@ -120,7 +124,7 @@ const InfoPage = () => {
                       <div className="space_area1">
                         <h5 className="tit_04">
                           <span>오화철 교수</span>
-                          <a href="javascript:void(0)" className="btn_close">Close</a>
+                          <button type="button" className="btn_close" onClick={closeTooltip}>Close</button>
                         </h5>
                         <ul>
                           <li>미국 뉴욕 유니온신학대학원 상담학 박사</li>
@@ -134,7 +138,7 @@ const InfoPage = () => {
                       <div className="space_area2">
                         <h5 className="tit_04">
                           <span>장정은 교수</span>
-                          <a href="javascript:void(0)" className="btn_close">Close</a>
+                          <button type="button" className="btn_close" onClick={closeTooltip}>Close</button>
                         </h5>
                         <ul>
                           <li>서울대 종교학과 학사</li>
@@ -149,44 +153,44 @@ const InfoPage = () => {
                     </div>
                   </li>
                   <li>
-                    <span>전문상담사</span>
-                    <div className="toolTip">
+                    <span onClick={() => showTooltip('counselor')} style={{ cursor: 'pointer' }}>전문상담사</span>
+                    <div className="toolTip" style={{ display: openTooltip === 'counselor' ? 'block' : undefined }}>
                       <h5 className="tit_04">
                         <span>전문상담사</span>
-                        <a href="javascript:void(0)" className="btn_close">Close</a>
+                        <button type="button" className="btn_close" onClick={closeTooltip}>Close</button>
                       </h5>
                       <ul>
                         <li>석사 이상의 상담 관련 국가자격증 및 한국의 4대 학회 자격증 보유한 전문상담사를 통해 상담이 진행된다.</li>
                       </ul>
                     </div>
 
-                    <span>연구팀</span>
-                    <div className="toolTip">
+                    <span onClick={() => showTooltip('research')} style={{ cursor: 'pointer' }}>연구팀</span>
+                    <div className="toolTip" style={{ display: openTooltip === 'research' ? 'block' : undefined }}>
                       <h5 className="tit_04">
                         <span>연구팀</span>
-                        <a href="javascript:void(0)" className="btn_close">Close</a>
+                        <button type="button" className="btn_close" onClick={closeTooltip}>Close</button>
                       </h5>
                       <ul>
                         <li>다양한 교육 프로그램을 위한 연구를 담당한다.</li>
                       </ul>
                     </div>
 
-                    <span>교육 전담팀</span>
-                    <div className="toolTip">
+                    <span onClick={() => showTooltip('education')} style={{ cursor: 'pointer' }}>교육 전담팀</span>
+                    <div className="toolTip" style={{ display: openTooltip === 'education' ? 'block' : undefined }}>
                       <h5 className="tit_04">
                         <span>교육 전담팀</span>
-                        <a href="javascript:void(0)" className="btn_close">Close</a>
+                        <button type="button" className="btn_close" onClick={closeTooltip}>Close</button>
                       </h5>
                       <ul>
                         <li>각 계층 및 EAP 교육을 위한 전문 교육 전담팀을 운영한다.</li>
                       </ul>
                     </div>
 
-                    <span>홍보팀</span>
-                    <div className="toolTip">
+                    <span onClick={() => showTooltip('pr')} style={{ cursor: 'pointer' }}>홍보팀</span>
+                    <div className="toolTip" style={{ display: openTooltip === 'pr' ? 'block' : undefined }}>
                       <h5 className="tit_04">
                         <span>홍보팀</span>
-                        <a href="javascript:void(0)" className="btn_close">Close</a>
+                        <button type="button" className="btn_close" onClick={closeTooltip}>Close</button>
                       </h5>
                       <ul>
                         <li>다양한 홍보를 통해 다양한 계층이 혜택을 얻을 수 있도록 운영한다.</li>

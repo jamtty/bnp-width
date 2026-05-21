@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 
 const Header = () => {
   const location = useLocation();
   const path = location.pathname;
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const active = path.startsWith('/info') ? 'info'
     : path.startsWith('/eap') ? 'eap'
@@ -11,6 +13,8 @@ const Header = () => {
     : path.startsWith('/notice') ? 'notice'
     : path.startsWith('/data') ? 'data'
     : '';
+
+  const closeMenu = () => setMenuOpen(false);
 
   return (
     <>
@@ -28,16 +32,23 @@ const Header = () => {
         <div className="logo_area">
           <h1><Link to="/">메인로고</Link></h1>
         </div>
-        <a href="javascript:void(0)" className="btn_gnbView close">gnbMenuView</a>
+        <button
+          type="button"
+          className={`btn_gnbView ${menuOpen ? 'open' : 'close'}`}
+          onClick={() => setMenuOpen(prev => !prev)}
+          aria-label="메뉴 열기/닫기"
+          aria-expanded={menuOpen}
+          style={{ border: 'none', padding: 0, cursor: 'pointer', backgroundColor: 'transparent' }}
+        >gnbMenuView</button>
 
-        <div id="gnbMenu">
+        <div id="gnbMenu" style={{ display: menuOpen ? 'block' : undefined }}>
           <div>
-            <h2 id="info" className={active === 'info' ? 'on' : ''}><Link to="/info">헤세드상담연구소</Link></h2>
-            <h2 id="eap" className={active === 'eap' ? 'on' : ''}><Link to="/eap">EAP</Link></h2>
-            <h2 id="counseling" className={active === 'counseling' ? 'on' : ''}><Link to="/counseling">상담 및 코칭</Link></h2>
-            <h2 id="education" className={active === 'education' ? 'on' : ''}><Link to="/education">임상 수련/교육</Link></h2>
-            <h2 id="notice" className={active === 'notice' ? 'on' : ''}><Link to="/notice">공지사항</Link></h2>
-            <h2 id="data" className={active === 'data' ? 'on' : ''}><Link to="/data">자료실</Link></h2>
+            <h2 id="info" className={active === 'info' ? 'on' : ''}><Link to="/info" onClick={closeMenu}>헤세드상담연구소</Link></h2>
+            <h2 id="eap" className={active === 'eap' ? 'on' : ''}><Link to="/eap" onClick={closeMenu}>EAP</Link></h2>
+            <h2 id="counseling" className={active === 'counseling' ? 'on' : ''}><Link to="/counseling" onClick={closeMenu}>상담 및 코칭</Link></h2>
+            <h2 id="education" className={active === 'education' ? 'on' : ''}><Link to="/education" onClick={closeMenu}>임상 수련/교육</Link></h2>
+            <h2 id="notice" className={active === 'notice' ? 'on' : ''}><Link to="/notice" onClick={closeMenu}>공지사항</Link></h2>
+            <h2 id="data" className={active === 'data' ? 'on' : ''}><Link to="/data" onClick={closeMenu}>자료실</Link></h2>
           </div>
         </div>
       </div>

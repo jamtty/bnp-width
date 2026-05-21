@@ -130,13 +130,6 @@ export default function AdminBannerPage() {
               </button>
             </div>
 
-            <div className="adm_table_info">
-              <span>총 {total}건</span>
-              <button className="adm_btn_delete" onClick={handleBulkDelete} disabled={checkedIds.length === 0}>
-                선택 삭제 ({checkedIds.length})
-              </button>
-            </div>
-
             <div className="adm_table_wrap">
               <table className="adm_table">
                 <thead>
@@ -218,17 +211,30 @@ export default function AdminBannerPage() {
             </div>
 
             {/* 페이징 */}
-            {totalPages > 1 && (
-              <div className="adm_paging">
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-                  <button
-                    key={p}
-                    className={p === page ? 'adm_page_btn active' : 'adm_page_btn'}
-                    onClick={() => setPage(p)}
-                  >{p}</button>
-                ))}
+            <div className="adm_pagination">
+              <div className="adm_pagination_left">
+                {checkedIds.length > 0 && (
+                  <button className="adm_btn_delete" onClick={handleBulkDelete}>
+                    선택 삭제 ({checkedIds.length})
+                  </button>
+                )}
+                <span className="adm_total_count">총 {total.toLocaleString()}건</span>
               </div>
-            )}
+              <div className="adm_page_btns">
+                <button className="adm_page_btn" disabled={page <= 1} onClick={() => setPage(1)}>{'<<'}</button>
+                <button className="adm_page_btn" disabled={page <= 1} onClick={() => setPage((p) => p - 1)}>{'<'}</button>
+                {(() => {
+                  const delta = 4
+                  const start = Math.max(1, page - delta)
+                  const end = Math.min(totalPages, page + delta)
+                  return Array.from({ length: end - start + 1 }, (_, i) => start + i).map((p) => (
+                    <button key={p} className={`adm_page_btn${page === p ? ' active' : ''}`} onClick={() => setPage(p)}>{p}</button>
+                  ))
+                })()}
+                <button className="adm_page_btn" disabled={page >= totalPages} onClick={() => setPage((p) => p + 1)}>{'>'}</button>
+                <button className="adm_page_btn" disabled={page >= totalPages} onClick={() => setPage(totalPages)}>{'>>'}</button>
+              </div>
+            </div>
           </section>
         </main>
       </div>

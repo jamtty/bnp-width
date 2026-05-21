@@ -994,6 +994,62 @@ select.adm_btn_secondary {
   cursor: pointer;
   flex-shrink: 0;
 }
+/* 파일 업로드 행 */
+.adm_file_row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.adm_file_label {
+  display: inline-flex;
+  align-items: center;
+  height: 3.6rem;
+  padding: 0 1.4rem;
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 0.4rem;
+  font-size: 1.3rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+.adm_file_label:hover {
+  background: #e5e7eb;
+}
+.adm_file_name {
+  font-size: 1.3rem;
+  color: #6b7280;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 30rem;
+}
+/* 라디오 그룹 */
+.adm_radio_group {
+  display: flex;
+  gap: 2rem;
+}
+.adm_radio {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: #374151;
+}
+.adm_radio input[type='radio'] {
+  accent-color: #2563eb;
+  width: 1.6rem;
+  height: 1.6rem;
+  cursor: pointer;
+}
+/* 입력 힌트 텍스트 */
+.adm_input_hint {
+  margin-top: 0.4rem;
+  font-size: 1.2rem;
+  color: #9ca3af;
+}
 .adm_form_btns {
   display: flex;
   justify-content: flex-end;
